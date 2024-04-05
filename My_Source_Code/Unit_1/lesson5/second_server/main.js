@@ -6,6 +6,7 @@
 //     return JSON.stringify(obj, null, 2);
 //   };
 
+//   //Listen for requests.
 //   app.on("request", (req, res) => {
 //     var body = [];
 //     req.on("data", (bodyData) => {
@@ -19,9 +20,10 @@
 //     console.log(`URL: ${getJSONString(req.url)}`);
 //     console.log(`Headers: ${getJSONString(req.headers)}`);
 //     res.writeHead(httpStatus.OK, {
-//       "Content-Type": "text/html"
+//       "Content-Type": "text/html"  //Respond with HTML.
 //       });
-//       let responseMessage = "<h1>This will show on the screen.</h1>";
+//      // Prepare a response.
+//       let responseMessage = "<h1>This will be shown on your screen.</h1>";
 //       res.end(responseMessage);
 //      });
 //      app.listen(port);
@@ -30,6 +32,7 @@
 
 // LISTING 5.6 SIMPLE ROUTING
 
+//Define mapping of routes with responses
 const routeResponseMap = {
   "/": "<h1>Welcome!. How are you?</h1>",
   "/info": "<h1>Info Page</h1>",
@@ -46,9 +49,12 @@ const routeResponseMap = {
   res.writeHead(200, {
  "Content-Type": "text/html"
   });
+
+  //Check whether a request route is defined in the map.
   if (routeResponseMap[req.url]) {
  res.end(routeResponseMap[req.url]);
   } else {
+    //Respond with default HTML
     res.end("<h1>Error!</h1>");
  }
  });

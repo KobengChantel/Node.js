@@ -66,21 +66,25 @@ http
   .createServer((req, res) => {
     let url = req.url;
     if (url.indexOf(".html") !== -1) {
+      console.log("in html logic", url.indexOf(".html"), url);
       res.writeHead(httpStatus.OK, {
         "Content-Type": "text/html",
       });
       customReadFile(`./views${url}`, res);
     } else if (url.indexOf(".js") !== -1) {
+      console.log("in js logic", url);
       res.writeHead(httpStatus.OK, {
         "Content-Type": "text/javascript",
       });
       customReadFile(`./public/js${url}`, res);
     } else if (url.indexOf(".css") !== -1) {
+      console.log("in css logic", url);
       res.writeHead(httpStatus.OK, {
         "Content-Type": "text/css",
       });
       customReadFile(`./public/css${url}`, res);
     } else if (url.indexOf(".png") !== -1) {
+      console.log("in png logic", url);
       res.writeHead(httpStatus.OK, {
         "Content-Type": "image/png",
       });
