@@ -4,6 +4,7 @@ const httpStatus = require("http-status-codes"),
   htmlContentType = {
     "Content-Type": "text/html"
   },
+  //Define a routes object to store routes mapped to POST and GET requests.
   routes = {
     GET: {
       "/info": (req, res) => {
@@ -16,6 +17,7 @@ const httpStatus = require("http-status-codes"),
     POST: {}
   };
 
+  //Create a function called handle to process route callback functions
 exports.handle = (req, res) => {
   try {
     if (routes[req.method][req.url]) {
@@ -29,6 +31,7 @@ exports.handle = (req, res) => {
   }
 };
 
+//Build get and post functions to register routes from main.js
 exports.get = (url, action) => {
   routes["GET"][url] = action;
 };

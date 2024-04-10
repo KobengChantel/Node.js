@@ -1,7 +1,9 @@
 // const port = 3000,
 //   http = require("http"),
 //   httpStatus = require("http-status-codes"),
-//   fs = require("fs"),
+//   fs = require("fs"), //require fs module
+
+//set up route mapping for html file
 //   routeMap = {
 //     "/": "views/index.html",
 //   };
@@ -11,8 +13,8 @@
 //       "Content-Type": "text/html",
 //     });
 //     if (routeMap[req.url]) {
-//       fs.readFile(routeMap[req.url], (error, data) => {
-//         res.write(data);
+//       fs.readFile(routeMap[req.url], (error, data) => {  //Read the contents of the mapped file.
+//         res.write(data);    //Respond with file contents
 //         res.end();
 //       });
 //     } else {
@@ -22,23 +24,27 @@
 //   .listen(port);
 // console.log(`The server has started and is listening on port number: ${port}`);
 
+
+
 //lISTING 6.3
 // const port = 3000,
 //   http = require("http"),
 //   httpStatus = require("http-status-codes"),
 //   fs = require("fs");
 
+//Create a function to interpolate the URL into the file path
 // const getViewUrl = (url) => {
 //   return `views${url}.html`;
 // };
 // http
 //   .createServer((req, res) => {
-//     let viewUrl = getViewUrl(req.url);
+//     let viewUrl = getViewUrl(req.url); //get the file-path string
+//Interpolate the request URL into your fs file search.
 //     fs.readFile(viewUrl, (error, data) => {
-//       if (error) {
+//       if (error) { //Handle errors with a 404 response code.
 //         res.writeHead(httpStatus.NOT_FOUND);
 //         res.write("<h1>FILE NOT FOUND</h1>");
-//       } else {
+//       } else { //Respond with file contents
 //         res.writeHead(httpStatus.OK, {
 //           "Content-Type": "text/html",
 //         });
@@ -55,7 +61,7 @@ const port = 3000,
   http = require("http"),
   httpStatus = require("http-status-codes"),
   fs = require("fs");
-const sendErrorResponse = (res) => {
+const sendErrorResponse = (res) => { ///Create an error handling function.
   res.writeHead(httpStatus.NOT_FOUND, {
     "Content-Type": "text/html",
   });
@@ -64,12 +70,13 @@ const sendErrorResponse = (res) => {
 };
 http
   .createServer((req, res) => {
-    let url = req.url;
-    if (url.indexOf(".html") !== -1) {
+    let url = req.url;  //Store the request’s URL in a variable url.
+    if (url.indexOf(".html") !== -1) { ///Check the URL to see whether it contains a file extension
       console.log("in html logic", url.indexOf(".html"), url);
       res.writeHead(httpStatus.OK, {
         "Content-Type": "text/html",
       });
+      //Call readFile to read file contents.Customize the response’s content type.
       customReadFile(`./views${url}`, res);
     } else if (url.indexOf(".js") !== -1) {
       console.log("in js logic", url);
@@ -95,8 +102,8 @@ http
   })
   .listen(3000);
 console.log(`The server is listening on port number: ${port}`);
-const customReadFile = (file_path, res) => {
-  if (fs.existsSync(file_path)) {
+const customReadFile = (file_path, res) => { //Look for a file by the name requested.
+  if (fs.existsSync(file_path)) { //Check whether the file exists.
     fs.readFile(file_path, (error, data) => {
       if (error) {
         console.log(error);

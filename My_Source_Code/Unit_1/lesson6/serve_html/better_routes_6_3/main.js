@@ -11,7 +11,7 @@ const port = 3000,
   htmlContentType = {
     "Content-Type": "text/html"
   },
-  customReadFile = (file, res) => {
+  customReadFile = (file, res) => {  //Create a custom  function to reduce code repetition
     fs.readFile(`./${file}`, (errors, data) => {
       if (errors) {
         console.log("Error reading the file...");
@@ -19,6 +19,8 @@ const port = 3000,
       res.end(data);
     });
   };
+
+  //Register routes with get and post
 router.get("/", (req, res) => {
   res.writeHead(httpStatusCodes.OK, plainTextContentType);
   res.end("INDEX");
@@ -31,5 +33,6 @@ router.post("/", (req, res) => {
   res.writeHead(httpStatusCodes.OK, plainTextContentType);
   res.end("POSTED");
 });
+//Handle all requests through router.js
 http.createServer(router.handle).listen(3000);
 console.log(`The server is listening on port number: ${port}`);
