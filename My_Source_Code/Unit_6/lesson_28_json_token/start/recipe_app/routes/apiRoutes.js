@@ -1,12 +1,8 @@
 "use strict";
 
 const router = require("express").Router(),
-  coursesController = require("../controllers/coursesController"),
-  usersController = require("../controllers/usersController");
+  coursesController = require("../controllers/coursesController");
 
- router.use(usersController.verifyToken);
-router.post("/login", usersController.apiAuthenticate);
-//router.use(usersController.verifyJWT);
 router.get("/courses/:id/join", coursesController.join, coursesController.respondJSON);
 router.get(
   "/courses",

@@ -5,7 +5,6 @@ const mongoose = require("mongoose"),
   Subscriber = require("./subscriber"),
   bcrypt = require("bcrypt"),
   passportLocalMongoose = require("passport-local-mongoose"),
-  randToken = require("rand-token"),
   userSchema = new Schema(
     {
       name: {
@@ -24,17 +23,11 @@ const mongoose = require("mongoose"),
         lowercase: true,
         unique: true
       },
-      
       zipCode: {
         type: Number,
         min: [1000, "Zip code too short"],
         max: 99999
       },
-
-      apiToken: {
-        type: String
-      },
-
       courses: [{ type: Schema.Types.ObjectId, ref: "Course" }],
       subscribedAccount: {
         type: Schema.Types.ObjectId,
@@ -67,12 +60,6 @@ userSchema.pre("save", function(next) {
   } else {
     next();
   }
-});
-
-userSchema.pre("save", function(next) {
-  let user = this;
-  if (!user.apiToken) user.apiToken = randToken.generate(16);
-  next();
 });
 
 userSchema.plugin(passportLocalMongoose, {
