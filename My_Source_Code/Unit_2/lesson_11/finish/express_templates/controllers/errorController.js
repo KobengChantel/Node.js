@@ -10,7 +10,7 @@ exports.logErrors = (error, req, res, next) => {// i added the middleware for er
 exports.respondNoResourceFound = (req, res) => {
   let errorCode = httpStatus.NOT_FOUND;
   res.status(errorCode);
-  res.send(`${errorCode} | The page does not exist!`);
+  res.send(`${errorCode} | The page doesn't exist!`);
   
 };
 
