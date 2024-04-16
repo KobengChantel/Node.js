@@ -29,7 +29,7 @@ app.post("/", (req, res) => {
 });
 
 app.use(errorController.logErrors);
-app.use(errorController.respondNoResourceFound);
+app.use(errorController.respondNoResourceFound);// i added error handling for the main.js
 app.use(errorController.respondInternalError);
 
 app.listen(app.get("port"), () => {

@@ -10,13 +10,13 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   connectFlash = require("connect-flash"),
   expressValidator = require("express-validator"),
-  passport = require("passport"),
+  passport = require("passport"),// reqiring passport model
   errorController = require("./controllers/errorController"),
   homeController = require("./controllers/homeController"),
   subscribersController = require("./controllers/subscribersController"),
   usersController = require("./controllers/usersController"),
   coursesController = require("./controllers/coursesController"),
-  User = require("./models/user");
+  User = require("./models/user");//reqiure user model
 
 mongoose.Promise = global.Promise;
 
@@ -62,9 +62,10 @@ router.use(
   })
 );
 
-router.use(passport.initialize());
-router.use(passport.session());
-passport.use(User.createStrategy());
+router.use(passport.initialize());//initialize pasport
+router.use(passport.session());//configure passport to use session in express.js
+passport.use(User.createStrategy());//configure the users log in strategy
+// set up passport to serialize and desrialize your data  user
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 router.use(connectFlash());

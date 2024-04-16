@@ -1,5 +1,5 @@
 "use strict";
-
+///I AM ADDING MORE ROUTES
 var courses = [
   {
     title: "Event Driven Cakes",
@@ -15,7 +15,7 @@ var courses = [
   }
 ];
 
-exports.showCourses = (req, res) => {
+exports.showCourses = (req, res) => {// ADD callback function forspecific routes(courses)
   res.render("courses", {
     offeredCourses: courses
   });

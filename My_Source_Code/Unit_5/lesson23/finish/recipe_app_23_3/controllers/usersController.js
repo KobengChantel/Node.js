@@ -124,12 +124,12 @@ module.exports = {
   login: (req, res) => {
     res.render("users/login");
   },
-  authenticate: (req, res, next) => {
+  authenticate: (req, res, next) => {//Query for one user by email.
     User.findOne({ email: req.body.email })
       .then(user => {
-        if (user) {
-          user.passwordComparison(req.body.password).then(passwordsMatch => {
-            if (passwordsMatch) {
+        if (user) {// check whether a user is found
+          user.passwordComparison(req.body.password).then(passwordsMatch => {//call password comparison method on user model
+            if (passwordsMatch) {// check if password match
               res.locals.redirect = `/users/${user._id}`;
               req.flash("success", `${user.fullName}'s logged in successfully!`);
               res.locals.user = user;
@@ -137,7 +137,7 @@ module.exports = {
               req.flash("error", "Failed to log in user account: Incorrect Password.");
               res.locals.redirect = "/users/login";
             }
-            next();
+            next();// call the next middleware with  direct path and flash message
           });
         } else {
           req.flash("error", "Failed to log in user account: User account not found.");
@@ -145,18 +145,18 @@ module.exports = {
           next();
         }
       })
-      .catch(error => {
+      .catch(error => {// log erros 
         console.log(`Error logging in user: ${error.message}`);
-        next(error);
+        next(error);// move to the next function
       });
   },
-  validate: (req, res, next) => {
+  validate: (req, res, next) => {// add validation method
     req
       .sanitizeBody("email")
       .normalizeEmail({
         all_lowercase: true
       })
-      .trim();
+      .trim();// trim method to  remove white space
     req.check("email", "Email is invalid").isEmail();
     req
       .check("zipCode", "Zip code is invalid")
@@ -166,18 +166,18 @@ module.exports = {
         min: 5,
         max: 5
       })
-      .equals(req.body.zipCode);
+      .equals(req.body.zipCode);//validating the zip code
     req.check("password", "Password cannot be empty").notEmpty();
 
-    req.getValidationResult().then(error => {
+    req.getValidationResult().then(error => {// collects results of previous validations
       if (!error.isEmpty()) {
         let messages = error.array().map(e => e.msg);
-        req.skip = true;
-        req.flash("error", messages.join(" and "));
-        res.locals.redirect = "/users/new";
+        req.skip = true;// set skip property to true
+        req.flash("error", messages.join(" and "));// add flash back messages for error
+        res.locals.redirect = "/users/new";// set direct path to new user
         next();
       } else {
-        next();
+        next();// calling the next middleware function
       }
     });
   }

@@ -17,13 +17,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/", (req, res) => {
+app.post("/", (req, res) => {// creating a new post route for hoome page
   console.log(req.body);
-  console.log(req.query);
+  console.log(req.query);// we are logging the boody request
   res.send("POST Successful!");
 });
 
-app.get("/items/:vegetable", homeController.sendReqParam);
+app.get("/items/:vegetable", homeController.sendReqParam);// handle request to /items/vegetables
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
