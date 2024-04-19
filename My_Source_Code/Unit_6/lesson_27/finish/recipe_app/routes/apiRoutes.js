@@ -9,7 +9,7 @@ router.get(
   coursesController.index,
   coursesController.filterUserCourses,
   coursesController.respondJSON
-);
-router.use(coursesController.errorJSON);
+);// add api route to the expresss.js router
+router.use(coursesController.errorJSON);//adding api error handling middleware
 
 module.exports = router;
