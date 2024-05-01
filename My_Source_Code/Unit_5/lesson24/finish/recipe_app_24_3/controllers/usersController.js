@@ -35,11 +35,11 @@ module.exports = {
   create: (req, res, next) => {
     if (req.skip) next();
     let newUser = new User(getUserParams(req.body));
-    User.register(newUser, req.body.password, (error, user) => {
+    User.register(newUser, req.body.password, (error, user) => {//Register new users
       if (user) {
         req.flash("success", `${user.fullName}'s account created successfully!`);
-        res.locals.redirect = "/users";
-        next();
+        res.locals.redirect = "/users";//Set redirect for successful user creation
+        next();//set direct and log errors in flassh messages
       } else {
         req.flash("error", `Failed to create user account because: ${error.message}.`);
         res.locals.redirect = "/users/new";
@@ -119,8 +119,8 @@ module.exports = {
   login: (req, res) => {
     res.render("users/login");
   },
-  authenticate: passport.authenticate("local", {
-    failureRedirect: "/users/login",
+  authenticate: passport.authenticate("local", {//all on passport to authenticate a user vi the local strategy.
+    failureRedirect: "/users/login",//Set up success and failure flash messages and redirect paths based on the user’s authentication status
     failureFlash: "Failed to login.",
     successRedirect: "/",
     successFlash: "Logged in!"

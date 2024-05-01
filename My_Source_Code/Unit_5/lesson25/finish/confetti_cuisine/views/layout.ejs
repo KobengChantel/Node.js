@@ -30,7 +30,7 @@
 		</div>
 
 		<div class="login">
-			<% if (loggedIn) { %>
+			<% if (loggedIn) { %>//check whether a user is logged in
 			<p>Logged in as
 				<a href="<%=`/users/${currentUser._id}`%>">
 					<%= currentUser.fullName %></a>
@@ -39,12 +39,12 @@
 				</span>
 			</p>
 			<%} else {%>
-			<a href="/users/login">Log In</a>
+			<a href="/users/login">Log In</a>//display the current user's name and logout link
 			<% } %>
 		</div>
 	</div>
 	<div class="flashes">
-		<% if (flashMessages) { %>
+		<% if (flashMessages) { %>//display flash messages in view
 		<% if (flashMessages.success) { %>
 		<div class="flash success">
 			<%= flashMessages.success %>

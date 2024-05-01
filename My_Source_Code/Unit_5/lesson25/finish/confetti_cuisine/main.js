@@ -43,7 +43,7 @@ router.use(
 );
 router.use(express.json());
 
-router.use(cookieParser("secretCuisine123"));
+router.use(cookieParser("secretCuisine123"));//configure cookeiParser withna secret key
 router.use(
   expressSession({
     secret: "secretCuisine123",
@@ -53,19 +53,19 @@ router.use(
     resave: false,
     saveUninitialized: false
   })
-);
+);//configure Express.js to use session
 router.use(connectFlash());
 
-router.use(passport.initialize());
-router.use(passport.session());
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
+router.use(passport.initialize());//configure express to initialize and usee passport
+router.use(passport.session());//instruct passport to use session
+passport.use(User.createStrategy());//set up the default log in strategy
+passport.serializeUser(User.serializeUser());//set up to compact encrypt and decrypt user data
 passport.deserializeUser(User.deserializeUser());
 
 router.use((req, res, next) => {
-  res.locals.loggedIn = req.isAuthenticated();
-  res.locals.currentUser = req.user;
-  res.locals.flashMessages = req.flash();
+  res.locals.loggedIn = req.isAuthenticated();//set up the loggin variable to reflect passport login status
+  res.locals.currentUser = req.user;//set up the currentUser variable to reflect a logged-in user
+  res.locals.flashMessages = req.flash();//assign flash messages to a local variable
   next();
 });
 
@@ -73,15 +73,15 @@ router.get("/", homeController.index);
 
 router.get("/users", usersController.index, usersController.indexView);
 router.get("/users/new", usersController.new);
-router.post(
+router.post(//add validation middle ware to the user create route
   "/users/create",
   usersController.validate,
   usersController.create,
   usersController.redirectView
 );
-router.get("/users/login", usersController.login);
-router.post("/users/login", usersController.authenticate);
-router.get("/users/logout", usersController.logout, usersController.redirectView);
+router.get("/users/login", usersController.login);//route to log in action
+router.post("/users/login", usersController.authenticate);//sends a post to an authenticate action
+router.get("/users/logout", usersController.logout, usersController.redirectView);//add a route to logout and redirect to a view
 router.get("/users/:id/edit", usersController.edit);
 router.put("/users/:id/update", usersController.update, usersController.redirectView);
 router.get("/users/:id", usersController.show, usersController.showView);

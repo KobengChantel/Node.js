@@ -121,7 +121,7 @@ module.exports = {
         next();
       });
   },
-  login: (req, res) => {
+  login: (req, res) => {//add the log in action
     res.render("users/login");
   },
   authenticate: (req, res, next) => {//Query for one user by email.

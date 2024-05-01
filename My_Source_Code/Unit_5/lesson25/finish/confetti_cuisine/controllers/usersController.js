@@ -117,10 +117,10 @@ module.exports = {
         next();
       });
   },
-  login: (req, res) => {
+  login: (req, res) => {//add anaction to render my form for browser viewing
     res.render("users/login");
   },
-  validate: (req, res, next) => {
+  validate: (req, res, next) => {//add valildation action
     req
       .sanitizeBody("email")
       .normalizeEmail({
@@ -136,27 +136,27 @@ module.exports = {
         min: 5,
         max: 5
       })
-      .equals(req.body.zipCode);
+      .equals(req.body.zipCode);//sanitize and check input field data
     req.check("password", "Password cannot be empty").notEmpty();
     req.getValidationResult().then(error => {
       if (!error.isEmpty()) {
         let messages = error.array().map(e => e.msg);
         req.skip = true;
         req.flash("error", messages.join(" and "));
-        res.locals.redirect = "/users/new";
+        res.locals.redirect = "/users/new";//collecct errors,and respond with flash messages
         next();
       } else {
         next();
       }
     });
   },
-  authenticate: passport.authenticate("local", {
+  authenticate: passport.authenticate("local", {//adding authentication middleware with redirect and flash messages option
     failureRedirect: "/users/login",
     failureFlash: "Failed to login.",
     successRedirect: "/",
     successFlash: "Logged in!"
   }),
-  logout: (req, res, next) => {
+  logout: (req, res, next) => {//adding an action to log users  out
     req.logout();
     req.flash("success", "You have been logged out!");
     res.locals.redirect = "/";

@@ -27,7 +27,7 @@
 			</a>
 		</div>
 		<div class="login-status">
-			<% if (loggedIn) { %>
+			<% if (loggedIn) { %>//check if user is logged in
 			<div class="bubble logged-in">
 				Logged in as <a href="<%=`/users/${currentUser._id}`%>">
 					<%= currentUser.fullName %></a>
@@ -35,7 +35,7 @@
 			<div class="log-out">
 				<a href="/users/logout">Log out</a>
 			</div>
-			<%} else {%>
+			<%} else {%>//display a link to log in
 			<div class="bubble log-in">
 				<a href="/users/login">Log In</a>
 			</div>
