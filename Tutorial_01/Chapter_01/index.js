@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {// we start and creat a server t
     res.writeHead(404)
     res.end(notFoundPage)
   }
-//   console.log(req.url)
-// res.end('Hello Node.js')// our respond on the browser
+  // console.log(req.url)
+  //   res.end('Hello Node.js')// our respond on the browser
 })
 server.listen(3000)//sever start taking reguests

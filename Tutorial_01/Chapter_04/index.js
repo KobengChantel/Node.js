@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
-
+//create new express app
 const app = new express();
+//require ejs
 const ejs = require('ejs');
+//we tell Express to use EJS as our templating engine, that any file endingin .ejs should be rendered with the EJS package
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));

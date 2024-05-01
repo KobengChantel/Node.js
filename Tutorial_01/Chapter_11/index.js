@@ -9,6 +9,7 @@ const newPostController = require('./controllers/newPost');
 const homeController = require('./controllers/home');
 const storePostController = require('./controllers/storePost');
 const getPostController = require('./controllers/getPost');
+//require middleware
 const validateMiddleWare = require('./middleware/validationMiddleware');
 const newUserController = require('./controllers/newUser');
 const storeUserController = require('./controllers/storeUser');
@@ -16,6 +17,7 @@ const loginController = require('./controllers/login');
 const loginUserController = require('./controllers/loginUser');
 const expressSession = require('express-session');
 const logoutController = require('./controllers/logout');
+//require ,iddleware authentication
 const authMiddleware = require('./middleware/authMiddleware');
 const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
 const flash = require('connect-flash');
@@ -64,7 +66,7 @@ app.use(flash());
 
 
 app.use('/posts/store', validateMiddleWare);
-
+//pass the middleware in here
 app.get('/posts/new', authMiddleware, newPostController);
 
 app.get('/', homeController);
@@ -72,7 +74,7 @@ app.get('/', homeController);
 app.get('/post/:id', getPostController);
 
 app.get('/posts/new', newPostController);
-
+//an unauthenticated user cannot access new post form and submit the blogpost
 app.post('/posts/store', authMiddleware, storePostController);
 
 app.get('/auth/register', redirectIfAuthenticatedMiddleware, newUserController);
