@@ -1,0 +1,8 @@
+oday we’ve learned many things about One-to-Many relationship and implement it in a Node.js app using Mongoose. Let me summarize the tutorial in several lines.
+
+We don’t have any standard or specific rule for all cases, it depends on the ways your application queries and updates data. You should identify the problems in your application’s use cases first, then model your data to answer the questions in the most efficient way.
+With one-to-few and one-to-many relationships, in general, think about Embedding first.
+One-to-aLot relationship is usually treated by Reference instead of Embedding.
+Use Embedding when data is mostly read but rarely updated, and when two models belong intrinsically together.
+Think about Referencing when data is updated a lot, and you need to frequently query a collection on its own.
+Never allow arrays to grow indefinitely. Therefore, use Child Referencing for one-to-many relationships, and Parent Referencing for One-to-aLot relationship

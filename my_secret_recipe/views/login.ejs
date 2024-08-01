@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <p class="description">Welcome back to our Recipe Blog! Log in to access your saved recipes and discover new culinary delights. If you don't have an account yet, sign up now and join our community of food enthusiasts.</p>
+    <% if (message) { %>
+      <p class="error"><%= message %></p>
+    <% } %>
+    <form action="/login" method="POST" class="form-container">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit" class="button">Login</button>
+    </form>
+    <a href="/signup">Don't have an account? Sign up</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Recipe</title>
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Recipe</h1>
+    <form action="/recipes/edit/<%= recipe._id %>" method="POST" enctype="multipart/form-data" class="form-container">
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="<%= recipe.title %>" required>
+      <label for="ingredients">Ingredients:</label>
+      <textarea id="ingredients" name="ingredients" required><%= recipe.ingredients %></textarea>
+      <label for="instructions">Instructions:</label>
+      <textarea id="instructions" name="instructions" required><%= recipe.instructions %></textarea>
+      <label for="image">Image:</label>
+      <input type="file" id="image" name="image">
+      <% if (recipe.image) { %>
+        <img src="/<%= recipe.image %>" alt="<%= recipe.title %>" style="max-width: 300px;">
+      <% } %>
+      <button type="submit" class="button">Update Recipe</button>
+    </form>
+  </div>
+</body>
+</html>
